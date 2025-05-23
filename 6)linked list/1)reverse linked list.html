@@ -1,0 +1,52 @@
+<html>
+<script>
+    class ListNode {
+        constructor(val, next = null) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+
+    function reverseLinkedList(head) {
+        let prev = null;
+        let current = head;
+
+        while (current !== null) {
+            const nextTemp = current.next;
+            current.next = prev;
+            prev = current;
+            current = nextTemp;
+        }
+
+        return prev;
+    }
+
+    // Example usage:
+    const node1 = new ListNode(1);
+    const node2 = new ListNode(2);
+    const node3 = new ListNode(3);
+    const node4 = new ListNode(4);
+
+    node1.next = node2;
+    node2.next = node3;
+    node3.next = node4;
+
+    console.log("Original list:");
+    let current = node1;
+    while (current !== null) {
+        console.log(current.val);
+        current = current.next;
+    }
+
+    const reversedHead = reverseLinkedList(node1);
+
+    console.log("Reversed list:");
+    let reversedCurrent = reversedHead;
+    while (reversedCurrent !== null) {
+        console.log(reversedCurrent.val);
+        reversedCurrent = reversedCurrent.next;
+    }
+
+</script>
+
+</html>

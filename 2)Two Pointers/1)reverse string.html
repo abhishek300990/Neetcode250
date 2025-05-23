@@ -1,0 +1,26 @@
+<html>
+<script>
+    /**
+* @param {character[]} s
+* @return {void} Do not return anything, modify s in-place instead.
+*/
+    function reverseString(s) {
+        let left = 0;
+        let right = s.length - 1;
+
+        while (left < right) {
+            // Swap characters at left and right
+            [s[left], s[right]] = [s[right], s[left]];
+            left++;
+            right--;
+        }
+    }
+
+    let chars = ['h', 'e', 'l', 'l', 'o'];
+    reverseString(chars);
+    console.log(chars); // Output: ['o', 'l', 'l', 'e', 'h']
+
+
+</script>
+
+</html>
