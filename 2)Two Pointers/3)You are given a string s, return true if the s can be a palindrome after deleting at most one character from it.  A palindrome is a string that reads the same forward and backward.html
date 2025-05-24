@@ -1,0 +1,36 @@
+<html>
+<script>
+    class Solution {
+        /**
+         * @param {string} s
+         * @return {boolean}
+         */
+
+        validPalindrome(s) {
+            let left = 0, right = s.length - 1;
+            function checkIsPalindrome(left, right) {
+                while (left < right) {
+                    if (s[left] != s[right]) return false;
+                    left++;
+                    right--;
+                }
+                return true
+            }
+            while (left < right) {
+                if (s[left] != s[right]) {
+                    return checkIsPalindrome(left + 1, right) || checkIsPalindrome(left, right - 1)
+                }
+                left++;
+                right--;
+            }
+            return true
+        }
+    }
+
+    const validPalindrome = new Solution();
+    console.log(validPalindrome.validPalindrome("abca")); // true (remove 'b' or 'c')
+    console.log(validPalindrome.validPalindrome("racecar")); // true (already a palindrome)
+    console.log(validPalindrome.validPalindrome("abcdef")); // false
+</script>
+
+</html>
