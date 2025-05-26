@@ -1,0 +1,59 @@
+<html>
+<script>
+    class ListNode {
+        constructor(val, next = null) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+
+    function reorderList(head) {
+        if (!head || !head.next) return;
+
+        // Step 1: Find middle
+        let slow = head, fast = head;
+        while (fast && fast.next) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // Step 2: Reverse second half
+        let prev = null, curr = slow.next;
+        slow.next = null; // break the list
+        while (curr) {
+            let next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        // Step 3: Merge both halves
+        let first = head;
+        let second = prev;
+        while(second){
+            let temp1 = first.next;
+            let temp2 = second.next;
+
+            first.next = second;
+            second.next = temp1;
+
+            first = temp1;
+            second = temp2
+        }
+        return head
+    }
+
+    head = new ListNode(0,
+        new ListNode(1,
+            new ListNode(2,
+                new ListNode(3,
+                    new ListNode(4,
+                        new ListNode(5,
+                            new ListNode(6)))))));
+
+    console.log(reorderList(head))
+
+
+</script>
+
+</html>

@@ -1,0 +1,21 @@
+<html>
+<script>
+    function maxProfit(prices) {
+        let minDay = prices[0];
+        let maxProfit = 0;
+        let sellingPrice = 0;
+
+        for (let i = 1; i < prices.length; i++) {
+            if (prices[i] < minDay) {
+                minDay = prices[i]
+            }
+            sellingPrice = Math.max(sellingPrice, prices[i]) - minDay;
+            maxProfit = Math.max(maxProfit, sellingPrice)
+        }
+        return maxProfit
+    }
+
+    console.log(maxProfit([10,1,5,6,7,1]))
+</script>
+
+</html>
