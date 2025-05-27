@@ -1,0 +1,45 @@
+<html>
+<script>
+
+</script>
+
+</html>
+<html>
+<script>
+    class Node {
+        constructor(val = 0, left = null, right = null) {
+            this.value = val
+            this.left = left
+            this.right = right
+        }
+    }
+
+    function diameterOfBinaryTree(root) {
+        let maxDiameter = 0;
+
+        function depth(node) {
+            if (node === null) return 0;
+            const leftDepth = depth(node.left)
+            const rightDepth = depth(node.right)
+
+            maxDiameter = Math.max(maxDiameter,leftDepth+rightDepth)
+
+            return 1+Math.max(leftDepth,rightDepth)
+        }
+
+        depth(root);
+
+        return maxDiameter;
+    }
+    let root = new Node(1);
+    root.left = new Node(2);
+    root.right = new Node(3);
+    root.left.left = new Node(4);
+    root.left.right = new Node(5);
+    root.right.left = new Node(6);
+    root.right.right = new Node(7);
+
+    console.log(diameterOfBinaryTree(root))
+</script>
+
+</html>
