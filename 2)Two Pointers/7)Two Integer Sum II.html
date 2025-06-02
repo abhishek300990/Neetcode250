@@ -1,0 +1,25 @@
+<html>
+<script>
+    class Solution {
+        /**
+         * @param {number[]} numbers
+         * @param {number} target
+         * @return {number[]}
+         */
+        twoSum(numbers, target) {
+            let map = {}
+            for (let i = 0; i < numbers.length; i++) {
+                if (map[target - numbers[i]] !== undefined) {
+                    return [map[target - numbers[i]], i+1]
+                }
+                map[numbers[i]] = i+1
+            }
+            return false
+        }
+    }
+
+    let sol = new Solution();
+    console.log(sol.twoSum([1,2,3,4],3))
+</script>
+
+</html>
