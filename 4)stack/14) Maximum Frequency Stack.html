@@ -1,0 +1,56 @@
+<html>
+<script>
+    class FreqStack {
+        constructor() {
+            this.freq = new Map();          // val -> frequency
+            this.group = new Map();         // freq -> stack of vals
+            this.maxFreq = 0;
+        }
+
+        push(val) {
+            // Update frequency
+            const f = (this.freq.get(val) || 0) + 1;
+            this.freq.set(val, f);
+
+            // Update max frequency
+            if (f > this.maxFreq) {
+                this.maxFreq = f;
+            }
+
+            // Push value to the group corresponding to its frequency
+            if (!this.group.has(f)) {
+                this.group.set(f, []);
+            }
+            this.group.get(f).push(val);
+        }
+
+        pop() {
+            const val = this.group.get(this.maxFreq).pop();
+
+            // Decrease frequency
+            this.freq.set(val, this.freq.get(val) - 1);
+
+            // If the group at maxFreq is empty, decrease maxFreq
+            if (this.group.get(this.maxFreq).length === 0) {
+                this.maxFreq--;
+            }
+
+            return val;
+        }
+    }
+    const fs = new FreqStack();
+    fs.push(5);
+    fs.push(7);
+    fs.push(5);
+    fs.push(7);
+    fs.push(4);
+    fs.push(5);
+
+    console.log(fs.pop()); // 5 (freq 3)
+    console.log(fs.pop()); // 7 (freq 2)
+    console.log(fs.pop()); // 5 (freq 2, pushed after 7)
+    console.log(fs.pop()); // 4
+
+</script>
+
+</html>

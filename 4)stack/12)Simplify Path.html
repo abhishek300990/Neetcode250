@@ -1,0 +1,26 @@
+<html>
+<script>
+    function simplifyPath(path) {
+        const stack = [];
+        const parts = path.split('/');
+
+        for (const part of parts) {
+            if (part === '' || part === '.') {
+                continue;
+            } else if (part === '..') {
+                if (stack.length > 0) {
+                    stack.pop();
+                }
+            } else {
+                stack.push(part);
+            }
+        }
+
+        return '/' + stack.join('/');
+    }
+
+console.log(simplifyPath("/neetcode/practice//...///../courses"))
+console.log(simplifyPath("/..//_home/a/b/..///"))
+</script>
+
+</html>

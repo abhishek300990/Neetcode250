@@ -1,0 +1,77 @@
+<html>
+<script>
+    class CircularQueue {
+        constructor(k) {
+            this.queue = new Array(k);
+            this.maxSize = k;
+            this.front = -1;
+            this.rear = -1;
+        }
+
+        // Enqueue operation
+        enqueue(value) {
+            if (this.isFull()) return false;
+
+            if (this.isEmpty()) {
+                this.front = 0;
+            }
+
+            this.rear = (this.rear + 1) % this.maxSize;
+            this.queue[this.rear] = value;
+            return true;
+        }
+
+        // Dequeue operation
+        dequeue() {
+            if (this.isEmpty()) return false;
+
+            if (this.front === this.rear) {
+                // Only one element in queue
+                this.front = -1;
+                this.rear = -1;
+            } else {
+                this.front = (this.front + 1) % this.maxSize;
+            }
+            return true;
+        }
+
+        // Get front item
+        Front() {
+            if (this.isEmpty()) return -1;
+            return this.queue[this.front];
+        }
+
+        // Get rear item
+        Rear() {
+            if (this.isEmpty()) return -1;
+            return this.queue[this.rear];
+        }
+
+        // Check if the queue is empty
+        isEmpty() {
+            return this.front === -1;
+        }
+
+        // Check if the queue is full
+        isFull() {
+            return ((this.rear + 1) % this.maxSize) === this.front;
+        }
+    }
+    const cq = new CircularQueue(3);
+    console.log(cq.enqueue(1)); // true
+    console.log(cq.enqueue(2)); // true
+    console.log(cq.enqueue(3)); // true
+    console.log(cq.enqueue(4)); // false (queue is full)
+
+    console.log(cq.Rear());     // 3
+    console.log(cq.isFull());   // true
+
+    console.log(cq.dequeue());  // true
+    console.log(cq.enqueue(4)); // true
+
+    console.log(cq.Rear());     // 4
+    console.log(cq.Front());    // 2
+
+</script>
+
+</html>

@@ -1,0 +1,33 @@
+<html>
+<script>
+    function characterReplacement(s, k) {
+        let maxCount = 0; // Maximum count of any single character in the current window
+        let maxLength = 0; // Length of the longest substring with repeating characters
+        let start = 0; // Start of the current window
+        let charCount = {}; // Count of each character in the current window
+
+        for (let end = 0; end < s.length; end++) {
+            const char = s[end];
+            charCount[char] = (charCount[char] || 0) + 1; // Update character count
+            maxCount = Math.max(maxCount, charCount[char]); // Update maxCount
+
+            // If the number of replacements needed is greater than k, shrink the window
+            if (end - start + 1 - maxCount > k) {
+                charCount[s[start]]--; // Remove the character from the window
+                start++; // Move the window's start to the right
+            }
+
+            maxLength = Math.max(maxLength, end - start + 1); // Update maxLength
+        }
+
+        return maxLength;
+    }
+
+    // Example usage:
+    const s = "AAABABB";
+    const k = 1;
+    console.log(characterReplacement(s, k)); // Output: 4
+
+</script>
+
+</html>

@@ -1,0 +1,46 @@
+<html>
+<script>
+    function asteroidCollision(asteroids) {
+        const stack = [];
+
+        for (let asteroid of asteroids) {
+            let alive = true;
+
+            while (
+                alive &&
+                asteroid < 0 &&
+                stack.length > 0 &&
+                stack[stack.length - 1] > 0
+            ) {
+                const top = stack[stack.length - 1];
+
+                if (top < -asteroid) {
+                    // Top asteroid is smaller — explode it
+                    stack.pop();
+                } else if (top === -asteroid) {
+                    // Both explode
+                    stack.pop();
+                    alive = false;
+                } else {
+                    // Incoming asteroid explodes
+                    alive = false;
+                }
+            }
+
+            if (alive) {
+                stack.push(asteroid);
+            }
+        }
+
+        return stack;
+    }
+
+    console.log(asteroidCollision([5, 10, -5])); // Output: [5,10]
+    console.log(asteroidCollision([8, -8]));     // Output: []
+    console.log(asteroidCollision([10, 2, -5])); // Output: [10]
+    console.log(asteroidCollision([-2, -1, 1, 2])); // Output: [-2,-1,1,2]
+
+
+</script>
+
+</html>

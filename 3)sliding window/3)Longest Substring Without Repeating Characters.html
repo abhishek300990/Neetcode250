@@ -1,0 +1,28 @@
+<html>
+<script>
+    function lengthOfLongestSubstring(s) {
+        let charIndexMap = new Map();  // To store the most recent index of each character
+        let maxLength = 0;
+        let left = 0;
+
+        for (let right = 0; right < s.length; right++) {
+            if (charIndexMap.has(s[right])) {
+                // If the character is repeated, move the left pointer
+                left = Math.max(left, charIndexMap.get(s[right]) + 1);
+            }
+
+            // Update the last seen index of the current character
+            charIndexMap.set(s[right], right);
+
+            // Calculate the current window length and update the max length
+            maxLength = Math.max(maxLength, right - left + 1);
+        }
+
+        return maxLength;
+    }
+
+    const inputString = "abcadbcbb";
+    console.log(lengthOfLongestSubstring(inputString));
+</script>
+
+</html>

@@ -1,0 +1,100 @@
+<html>
+<script>
+    function minWindow(s, t) {
+        const map = {};
+        for (const char of t) {
+            map[char] = (map[char] || 0) + 1;
+        }
+
+        let left = 0;
+        let minLeft = 0;
+        let minLen = Infinity;
+        let count = t.length;
+
+        for (let right = 0; right < s.length; right++) {
+            if (map[s[right]] !== undefined) {
+                if (map[s[right]] > 0) {
+                    count--;
+                }
+                map[s[right]]--;
+            }
+
+            while (count === 0) {
+                if (right - left + 1 < minLen) {
+                    minLen = right - left + 1;
+                    minLeft = left;
+                }
+                if (map[s[left]] !== undefined) {
+                    map[s[left]]++;
+                    if (map[s[left]] > 0) {
+                        count++;
+                    }
+                }
+                left++;
+            }
+        }
+
+        return minLen === Infinity ? "" : s.substring(minLeft, minLeft + minLen);
+    }
+
+    // Example usage:
+    const s = "ADOBECODEBANC";
+    const t = "ABC";
+    console.log(minWindow(s, t)); // Output: "BANC"
+
+
+
+    function minWindowNew(s, t) {
+    if (s.length < t.length) return "";
+
+    // Step 1: Create a frequency map for characters in t
+    const targetFreq = new Map();
+    for (let char of t) {
+        targetFreq.set(char, (targetFreq.get(char) || 0) + 1);
+    }
+
+    // Step 2: Sliding window setup
+    const windowFreq = new Map();
+    let left = 0, right = 0;
+    let validCount = 0;  // To count how many characters meet the target frequency
+    let minLength = Infinity;
+    let minLeft = -1;
+
+    // Step 3: Expand the window with the right pointer
+    while (right < s.length) {
+        const charRight = s[right];
+        windowFreq.set(charRight, (windowFreq.get(charRight) || 0) + 1);
+
+        // If the frequency of the current character in the window matches the target frequency
+        if (windowFreq.get(charRight) === targetFreq.get(charRight)) {
+            validCount++;
+        }
+
+        // Step 4: Shrink the window with the left pointer if we have a valid window
+        while (validCount === targetFreq.size) {
+            // Check if we found a smaller window
+            if (right - left + 1 < minLength) {
+                minLength = right - left + 1;
+                minLeft = left;
+            }
+
+            // Try to shrink the window by moving left pointer
+            const charLeft = s[left];
+            windowFreq.set(charLeft, windowFreq.get(charLeft) - 1);
+            if (windowFreq.get(charLeft) < targetFreq.get(charLeft)) {
+                validCount--;
+            }
+            left++;
+        }
+
+        right++;
+    }
+
+    // Step 5: Return the result
+    return minLeft === -1 ? "" : s.substring(minLeft, minLeft + minLength);
+}
+
+    console.log(minWindowNew(s, t));
+</script>
+
+</html>

@@ -1,0 +1,40 @@
+<html>
+<script>
+    class ListNode {
+        constructor(val, next = null) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+    var removeNthNode = function (head, n) {
+        if (!head || !head.next) {
+            return null
+        }
+        let count = 0;
+        let dummy = new ListNode(0);
+        dummy.next = head
+        let slow = dummy;
+        let fast = dummy;
+        for (let i = 0; i <= n; i++) {
+            fast = fast.next;
+        }
+        while (fast) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        // Remove the nth node
+        slow.next = slow.next.next;
+
+        return dummy.next;
+    };
+
+    let head = new ListNode(1);
+    head.next = new ListNode(2);
+    head.next.next = new ListNode(3);
+    head.next.next.next = new ListNode(4);
+    head.next.next.next.next = new ListNode(5);
+
+    console.log(removeNthNode(head, 3))
+</script>
+
+</html>
